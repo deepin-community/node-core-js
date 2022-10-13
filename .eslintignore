@@ -1,0 +1,4 @@
+node_modules/
+/packages/core-js-bundle/
+/packages/core-js-pure/override/
+/tests/bundles/

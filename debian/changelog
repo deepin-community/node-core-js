@@ -1,0 +1,160 @@
+node-core-js (3.8.2-3) unstable; urgency=medium
+
+  * Team upload
+  * Apply multi-arch hints (foreign)
+  * Fix GitHub tags regex
+  * Update standards version to 4.6.0, no changes needed.
+  * Fix filenamemangle
+  * Drop dependency to nodejs
+
+ -- Yadd <yadd@debian.org>  Wed, 17 Nov 2021 09:10:10 +0100
+
+node-core-js (3.8.2-2) unstable; urgency=medium
+
+  * Team upload
+  * Remove useless and broken symlink (Closes: #985697)
+
+ -- Yadd <yadd@debian.org>  Mon, 22 Mar 2021 11:42:29 +0100
+
+node-core-js (3.8.2-1) unstable; urgency=medium
+
+  * Team upload
+  * Remove useless link (Closes: #977341)
+  * New upstream version 3.8.2
+
+ -- Xavier Guimard <yadd@debian.org>  Fri, 08 Jan 2021 06:21:12 +0100
+
+node-core-js (3.8.1-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream version 3.8.1
+
+ -- Xavier Guimard <yadd@debian.org>  Wed, 09 Dec 2020 10:11:00 +0100
+
+node-core-js (3.8.0-1) unstable; urgency=medium
+
+  * Team upload
+
+  [ Debian Janitor ]
+  * Set upstream metadata fields: Security-Contact.
+
+  [ Xavier Guimard ]
+  * Bump debhelper compatibility level to 13
+  * Declare compliance with policy 4.5.1
+  * Modernize debian/watch
+  * Use dh-sequence-nodejs
+  * New upstream version 3.8.0
+
+ -- Xavier Guimard <yadd@debian.org>  Mon, 30 Nov 2020 12:44:14 +0100
+
+node-core-js (3.6.5-1) unstable; urgency=medium
+
+  * Team upload
+  * Declare compliance with policy 4.5.0
+  * New upstream version 3.6.5
+
+ -- Xavier Guimard <yadd@debian.org>  Mon, 25 May 2020 10:29:34 +0200
+
+node-core-js (3.6.1-3) unstable; urgency=medium
+
+  * Team upload
+  * Add Breaks: node-jszip (<< 3.22~) (Closes: #949245)
+
+ -- Pirate Praveen <praveen@debian.org>  Sun, 19 Jan 2020 01:04:06 +0530
+
+node-core-js (3.6.1-2) unstable; urgency=medium
+
+  * Team upload
+  * Back to unstable after successful tests
+  * Add a "Breaks" to node-babel-runtime < 6.26.0+repack-1
+
+ -- Xavier Guimard <yadd@debian.org>  Sat, 11 Jan 2020 09:25:20 +0100
+
+node-core-js (3.6.1-1) experimental; urgency=medium
+
+  * Team upload
+  * New upstream version 3.6.1
+
+ -- Xavier Guimard <yadd@debian.org>  Sun, 29 Dec 2019 18:52:38 +0100
+
+node-core-js (3.6.0-1) experimental; urgency=medium
+
+  * Team upload
+
+  [ Debian Janitor ]
+  * Set upstream metadata fields: Bug-Submit.
+
+  [ Xavier Guimard ]
+  * New upstream version 3.6.0
+  * Require node-semver ≥ 7
+
+ -- Xavier Guimard <yadd@debian.org>  Sat, 21 Dec 2019 15:40:37 +0100
+
+node-core-js (3.4.7-1) experimental; urgency=medium
+
+  * Team upload
+  * New upstream version 3.4.7
+  * Add patch to fix core-js-data path
+  * Update test
+
+ -- Xavier Guimard <yadd@debian.org>  Sat, 07 Dec 2019 13:27:20 +0100
+
+node-core-js (3.4.2-1) experimental; urgency=medium
+
+  * Team upload
+  * Declare compliance with policy 4.4.1
+  * Add "Rules-Requires-Root: no"
+  * Change section to javascript
+  * Add debian/gbp.conf
+  * Add upstream/metadata
+  * Switch install to pkg-js-tools ≥ 0.9.20~
+  * Remove useless lintian overrides
+  * Update copyright
+  * Enable partial upstream test
+  * debian/rules: generate missing files
+  * Add node-browserslist and node-semver in dependencies
+  * Add node-detective, node-electron-to-chromium and node-glob in build
+    dependencies
+  * Add debian/clean
+  * New upstream version 3.4.2
+  * Require node ≥ 8
+  * New core-js-pure file: postinstall.js
+
+ -- Xavier Guimard <yadd@debian.org>  Mon, 25 Nov 2019 21:50:27 +0100
+
+node-core-js (3.2.1-2) experimental; urgency=medium
+
+  * Team upload
+  * Use debian/nodejs/additional_components option in pkg-js-tools
+  * Add debian/nodejs/root_modules option to install all modules in nodejs
+    modules root instead of node_modules relative to core-js
+
+ -- Pirate Praveen <praveen@debian.org>  Thu, 19 Sep 2019 16:58:29 +0530
+
+node-core-js (3.2.1-1) experimental; urgency=medium
+
+  * Team upload
+
+  [ Sruthi Chandran ]
+  * New upstream version 3.2.1
+  * Bump Standards-Version to 4.4.0 (no changes needed)
+  * Use salsa.debian.org in Vcs-* fields
+  * Drop compat file, rely on debhelper-compat and bump compat level to 12
+  * Switch to pkg-js-tools
+
+  [ Pirate Praveen ]
+  * Manually install packages/core-js
+
+ -- Pirate Praveen <praveen@debian.org>  Sat, 07 Sep 2019 01:14:46 +0530
+
+node-core-js (2.4.1-2) unstable; urgency=medium
+
+  * Update missing copyright info (Closes: #846011)
+
+ -- Sruthi Chandran <srud@disroot.org>  Sun, 04 Dec 2016 12:32:53 +0530
+
+node-core-js (2.4.1-1) unstable; urgency=low
+
+  * Initial release (Closes: #845071)
+
+ -- Sruthi Chandran <srud@disroot.org>  Sun, 20 Nov 2016 10:01:50 +0530

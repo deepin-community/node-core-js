@@ -1,0 +1,5 @@
+version=4
+opts=\
+dversionmangle=auto,\
+filenamemangle=s/.*?(\d[\d\.-]*@ARCHIVE_EXT@)/node-core-js-$1/ \
+ https://github.com/zloirock/core-js/tags .*/archive/.*/v?([\d\.]+).tar.gz

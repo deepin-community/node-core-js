@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	# Disable grunt build targets
+	node packages/core-js-compat/src/build-data
+	node packages/core-js-compat/src/build-entries
+	node packages/core-js-compat/src/build-modules-by-versions
+	for i in es features internals modules proposals stable stage web configurator.js postinstall.js; do \
+		ln -s ../../packages/core-js/$$i packages/core-js-pure/$$i; \
+	done
+	cp packages/core-js/index.js packages/core-js-pure/
+
+override_dh_install:
+	dh_install
+	find debian/node-core-js/usr/share/nodejs -name '*.md' -delete

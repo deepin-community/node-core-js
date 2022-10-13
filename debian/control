@@ -1,0 +1,37 @@
+Source: node-core-js
+Section: javascript
+Priority: optional
+Maintainer: Debian Javascript Maintainers <pkg-javascript-devel@lists.alioth.debian.org>
+Uploaders: Sruthi Chandran <srud@disroot.org>
+Testsuite: autopkgtest-pkg-nodejs
+Build-Depends:
+ debhelper-compat (= 13)
+ , dh-sequence-nodejs
+ , node-browserslist
+ , node-detective
+ , node-electron-to-chromium
+ , node-glob
+ , node-semver (>= 7)
+Standards-Version: 4.6.0
+Homepage: https://github.com/zloirock/core-js#readme
+Vcs-Git: https://salsa.debian.org/js-team/node-core-js.git
+Vcs-Browser: https://salsa.debian.org/js-team/node-core-js
+Rules-Requires-Root: no
+
+Package: node-core-js
+Architecture: all
+Depends:
+ ${misc:Depends}
+ , node-browserslist
+ , node-semver (>= 7)
+Breaks: node-babel-runtime (<< 6.26.0+repack-1), node-jszip (<< 3.2.2~)
+Multi-Arch: foreign
+Provides: ${nodejs:Provides}
+Description: Modular standard library for JavaScript
+ Includes polyfills for ECMAScript 5, ECMAScript 6: promises, symbols,
+ collections, iterators, typed arrays, ECMAScript 7+ proposals, setImmediate,
+ etc. Some additional features such as dictionaries or extended partial
+ application. You can require only needed features or use it without global
+ namespace pollution.
+ .
+ Node.js is an event-based server-side JavaScript engine.
