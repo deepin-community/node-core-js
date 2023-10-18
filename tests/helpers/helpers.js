@@ -1,5 +1,11 @@
 import Promise from 'core-js-pure/es/promise';
-import ITERATOR from 'core-js-pure/features/symbol/iterator';
+import ITERATOR from 'core-js-pure/es/symbol/iterator';
+import ASYNC_ITERATOR from 'core-js-pure/es/symbol/async-iterator';
+
+export function is(a, b) {
+  // eslint-disable-next-line no-self-compare -- NaN check
+  return a === b ? a !== 0 || 1 / a === 1 / b : a != a && b != b;
+}
 
 export function createIterator(elements, methods) {
   let index = 0;
@@ -40,14 +46,57 @@ export function createIterable(elements, methods) {
   return iterable;
 }
 
+export function createAsyncIterable(elements, methods) {
+  const iterable = {
+    called: false,
+    received: false,
+    [ASYNC_ITERATOR]() {
+      iterable.received = true;
+      let index = 0;
+      const iterator = {
+        next() {
+          iterable.called = true;
+          return Promise.resolve({
+            value: elements[index++],
+            done: index > elements.length,
+          });
+        },
+      };
+      if (methods) for (const key in methods) iterator[key] = methods[key];
+      return iterator;
+    },
+  };
+  return iterable;
+}
+
+export function createConversionChecker(value, string) {
+  const checker = {
+    $valueOf: 0,
+    $toString: 0,
+    valueOf() {
+      checker.$valueOf++;
+      return value;
+    },
+    toString() {
+      checker.$toString++;
+      return arguments.length > 1 ? string : String(value);
+    },
+  };
+
+  return checker;
+}
+
+export function arrayFromArrayLike(source) {
+  const { length } = source;
+  const result = Array(length);
+  for (let index = 0; index < length; index++) {
+    result[index] = source[index];
+  } return result;
+}
+
 export function includes(target, wanted) {
   for (const element of target) if (wanted === element) return true;
   return false;
-}
-
-export function is(a, b) {
-  // eslint-disable-next-line no-self-compare
-  return a === b ? a !== 0 || 1 / a === 1 / b : a != a && b != b;
 }
 
 export const nativeSubclass = (() => {
@@ -76,19 +125,24 @@ export function timeLimitedPromise(time, fn) {
 export function patchRegExp$exec(run) {
   return assert => {
     const originalExec = RegExp.prototype.exec;
-    // eslint-disable-next-line no-extend-native
+    // eslint-disable-next-line no-extend-native -- required for testing
     RegExp.prototype.exec = function () {
       return originalExec.apply(this, arguments);
     };
     try {
       return run(assert);
-    // In very old IE try / finally does not work without catch.
-    // eslint-disable-next-line no-useless-catch
+    // eslint-disable-next-line no-useless-catch -- in very old IE try / finally does not work without catch
     } catch (error) {
       throw error;
     } finally {
-      // eslint-disable-next-line no-extend-native
+      // eslint-disable-next-line no-extend-native -- required for testing
       RegExp.prototype.exec = originalExec;
     }
   };
+}
+
+export function fromSource(source) {
+  try {
+    return Function(`return ${ source }`)();
+  } catch { /* empty */ }
 }

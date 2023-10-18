@@ -1,0 +1,7 @@
+{
+  "name": "scripts/usage",
+  "devDependencies": {
+    "jszip": "^3.10.1",
+    "playwright": "^1.27.1"
+  }
+}

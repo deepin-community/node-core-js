@@ -1,0 +1,36 @@
+Description: fix for webpack 5
+ Picked from upstream v4 branch
+Author: Denis Pushkarev <zloirock@zloirock.ru>
+Origin: upstream, https://github.com/zloirock/core-js/blob/v4/packages/core-js-builder/index.js
+Bug-Debian: https://bugs.debian.org/1011868
+Forwarded: not-needed
+Last-Update: 2022-10-29
+
+--- a/packages/core-js-builder/index.js
++++ b/packages/core-js-builder/index.js
+@@ -9,7 +9,7 @@
+ const { dirname, join } = require('path');
+ const tmpdir = require('os').tmpdir();
+ // TODO: replace by `mkdir` with `recursive: true` after dropping NodeJS < 10.12 support
+-const mkdirp = promisify(require('mkdirp'));
++const mkdirp = require('mkdirp');
+ const webpack = promisify(require('webpack'));
+ const compat = require('core-js-compat/compat');
+ const { banner } = require('./config');
+@@ -51,13 +51,13 @@
+         mode: 'none',
+         node: {
+           global: false,
+-          process: false,
+-          setImmediate: false,
++          //process: false,
++          //setImmediate: false,
+         },
+         entry: list.map(it => require.resolve(`core-js/modules/${ it }`)),
+         output: {
+           filename: tempFileName,
+-          hashFunction: 'md5',
++          //hashFunction: 'md5',
+           path: tmpdir,
+         },
+       });
