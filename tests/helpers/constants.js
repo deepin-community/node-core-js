@@ -12,7 +12,9 @@ export const GLOBAL = Function('return this')();
 
 export const NATIVE = GLOBAL.NATIVE || false;
 
-export const TYPED_ARRAYS = {
+export const NODE = Object.prototype.toString.call(GLOBAL.process).slice(8, -1) === 'process';
+
+const $TYPED_ARRAYS = {
   Float32Array: 4,
   Float64Array: 8,
   Int8Array: 1,
@@ -23,6 +25,25 @@ export const TYPED_ARRAYS = {
   Uint32Array: 4,
   Uint8ClampedArray: 1,
 };
+
+export const TYPED_ARRAYS = [];
+
+for (const name in $TYPED_ARRAYS) TYPED_ARRAYS.push({
+  name,
+  TypedArray: GLOBAL[name],
+  bytes: $TYPED_ARRAYS[name],
+  $: Number,
+});
+
+export const TYPED_ARRAYS_WITH_BIG_INT = TYPED_ARRAYS.slice();
+
+for (const name of ['BigInt64Array', 'BigUint64Array']) if (GLOBAL[name]) TYPED_ARRAYS_WITH_BIG_INT.push({
+  name,
+  TypedArray: GLOBAL[name],
+  bytes: 8,
+  // eslint-disable-next-line es/no-bigint -- safe
+  $: BigInt,
+});
 
 export const LITTLE_ENDIAN = (() => {
   try {
@@ -55,6 +76,15 @@ export const CORRECT_PROTOTYPE_GETTER = !function () {
     function F() { /* empty */ }
     F.prototype.constructor = null;
     return Object.getPrototypeOf(new F()) !== F.prototype;
+  } catch {
+    return true;
+  }
+}();
+
+// FF < 23 bug
+export const REDEFINABLE_ARRAY_LENGTH_DESCRIPTOR = DESCRIPTORS && !function () {
+  try {
+    Object.defineProperty([], 'length', { writable: false });
   } catch {
     return true;
   }

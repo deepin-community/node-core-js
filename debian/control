@@ -6,13 +6,16 @@ Uploaders: Sruthi Chandran <srud@disroot.org>
 Testsuite: autopkgtest-pkg-nodejs
 Build-Depends:
  debhelper-compat (= 13)
- , dh-sequence-nodejs
+ , dh-sequence-nodejs (>= 0.14.18~)
+ , node-babel7
  , node-browserslist
- , node-detective
- , node-electron-to-chromium
- , node-glob
- , node-semver (>= 7)
-Standards-Version: 4.6.0
+ , node-mkdirp
+ , node-semver
+ , terser (>= 5)
+ , webpack (>= 5)
+ , zx
+ , dh-nodejs
+Standards-Version: 4.6.1
 Homepage: https://github.com/zloirock/core-js#readme
 Vcs-Git: https://salsa.debian.org/js-team/node-core-js.git
 Vcs-Browser: https://salsa.debian.org/js-team/node-core-js
@@ -20,18 +23,65 @@ Rules-Requires-Root: no
 
 Package: node-core-js
 Architecture: all
-Depends:
- ${misc:Depends}
- , node-browserslist
- , node-semver (>= 7)
+Depends: ${misc:Depends}
 Breaks: node-babel-runtime (<< 6.26.0+repack-1), node-jszip (<< 3.2.2~)
 Multi-Arch: foreign
-Provides: ${nodejs:Provides}
 Description: Modular standard library for JavaScript
- Includes polyfills for ECMAScript 5, ECMAScript 6: promises, symbols,
+ Includes polyfills for ECMAScript up to 2021: promises, symbols,
  collections, iterators, typed arrays, ECMAScript 7+ proposals, setImmediate,
  etc. Some additional features such as dictionaries or extended partial
- application. You can require only needed features or use it without global
+ application.
+
+Package: node-core-js-builder
+Architecture: all
+Depends: ${misc:Depends}
+ , node-browserslist
+ , node-core-js
+ , node-mkdirp
+ , node-semver
+ , webpack
+Breaks: node-core-js (<< 3.21.1~)
+Replaces: node-core-js (<< 3.21.1~)
+Description: Node.js module to build a custom core-js
+ For some cases could be useful to exclude some `core-js` features or
+ generate a polyfill for target engines. This API helps conditionally include
+ or exclude certain parts of core-js, build for targets specified in
+ core-js-compat format
+
+Package: node-core-js-bundle
+Architecture: all
+Depends: ${misc:Depends}
+Multi-Arch: foreign
+Breaks: node-core-js (<< 3.21.1~)
+Replaces: node-core-js (<< 3.21.1~)
+Description: Modular version of core-js to load only required features
+ core-js is a modular standard library for JavaScript. Includes polyfills for
+ ECMAScript up to 2021: promises, symbols, collections, iterators, typed
+ arrays, many other features, ECMAScript proposals. With core-js-bundle, one
+ can load only required features or use it without global namespace pollution.
+
+Package: node-core-js-compat
+Architecture: all
+Depends: ${misc:Depends}
+ , node-browserslist
+ , node-semver
+Multi-Arch: foreign
+Breaks: node-core-js (<< 3.21.1~)
+Replaces: node-core-js (<< 3.21.1~)
+Description: data about the necessity of core-js
+ core-js-compat contains data about the necessity of core-js modules and API
+ for getting a list of required core-js modules by browserslist query.
+
+Package: node-core-js-pure
+Architecture: all
+Depends: ${misc:Depends}
+Multi-Arch: foreign
+Breaks: node-core-js (<< 3.21.1~)
+Replaces: node-core-js (<< 3.21.1~)
+Description: Modular standard library for JavaScript without global namespace pollution
+ Includes polyfills for ECMAScript up to 2021: promises, symbols,
+ collections, iterators, typed arrays, ECMAScript 7+ proposals, setImmediate,
+ etc. Some additional features such as dictionaries or extended partial
+ application.
+ Use core-js-pure to require only needed features or use it without global
  namespace pollution.
- .
- Node.js is an event-based server-side JavaScript engine.
